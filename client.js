@@ -4,8 +4,7 @@ import axios from "axios";
 
 const app = express();
 const port = 3000;
-const API_URL =
-  "https://blog-api-server.vercel.app/";
+const API_URL = "https://blog-api-server.vercel.app/";
 
 app.use(express.static("public"));
 
@@ -15,7 +14,9 @@ app.use(bodyParser.json());
 // Route to render the main page
 app.get("/", async (req, res) => {
   try {
-    const response = await axios.get(`${API_URL}/posts`);
+    const response = await axios.get(
+      `https://blog-api-server.vercel.app/posts`
+    );
     console.log(response);
     res.render("index.ejs", { posts: response.data });
   } catch (error) {
