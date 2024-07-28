@@ -40,60 +40,64 @@ let posts = [
   },
 ];
 
-
 let lastId = 4;
 
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get("/", (req, res) => {
+  res.send("Working");
+});
 
 //GET All posts
-app.get("/posts", (req,res)=>{
+app.get("/posts", (req, res) => {
   res.json(posts);
 });
 
 //GET a specific post by id
-app.get("/posts/:id", (req,res)=>{
-  const id = parseInt(req.params.id);  //parseInt to change it in int
-  const foundPost = posts.find((post) => post.id === id);  //using find loope
-  if(!foundPost) return res.status(404).json({ message: "post not found"});
+app.get("/posts/:id", (req, res) => {
+  const id = parseInt(req.params.id); //parseInt to change it in int
+  const foundPost = posts.find((post) => post.id === id); //using find loope
+  if (!foundPost) return res.status(404).json({ message: "post not found" });
   res.json(foundPost);
-})
+});
 
 //POST a new post
-app.post('/posts', (req,res)=>{
-  const newpost={
-   id: lastId +1, 
-   title: req.body.title,
-   content: req.body.content,
-   author: req.body.author,
-   date: new Date(),
+app.post("/posts", (req, res) => {
+  const newpost = {
+    id: lastId + 1,
+    title: req.body.title,
+    content: req.body.content,
+    author: req.body.author,
+    date: new Date(),
   };
   posts.push(newpost);
   res.json(posts);
 });
 
 //PATCH a post when you just want to update one parameter
-app.patch("/posts/:id", (req,res)=>{
-  const id = parseInt(req.params.id);  //parseInt to change it in int
- const foundIndex = posts.findIndex((post) => post.id === id);
- if(foundIndex===-1) return res.status(404).json({ message: "post not found"});
- if(req.body.title) posts[foundIndex].title=req.body.title;
- if(req.body.content) posts[foundIndex].content=req.body.content;
- if(req.body.author) posts[foundIndex].author=req.body.author;
- res.json(posts[foundIndex]);
+app.patch("/posts/:id", (req, res) => {
+  const id = parseInt(req.params.id); //parseInt to change it in int
+  const foundIndex = posts.findIndex((post) => post.id === id);
+  if (foundIndex === -1)
+    return res.status(404).json({ message: "post not found" });
+  if (req.body.title) posts[foundIndex].title = req.body.title;
+  if (req.body.content) posts[foundIndex].content = req.body.content;
+  if (req.body.author) posts[foundIndex].author = req.body.author;
+  res.json(posts[foundIndex]);
 });
 
 //DELETE a specific post by providing the post id.
-app.delete("/posts/:id", (req,res)=>{
-  const id = parseInt(req.params.id);  //parseInt to change it in int
+app.delete("/posts/:id", (req, res) => {
+  const id = parseInt(req.params.id); //parseInt to change it in int
   const foundIndex = posts.findIndex((post) => post.id === id);
-  if(foundIndex===-1) return res.status(404).json({ message: "post not found"});
+  if (foundIndex === -1)
+    return res.status(404).json({ message: "post not found" });
   posts.splice(foundIndex, 1);
-  res.json({message: "page deleted"})
+  res.json({ message: "page deleted" });
   // res.sendStatus(200);
-})
+});
 
 app.listen(port, () => {
   console.log(`API is running at http://localhost:${port}`);
