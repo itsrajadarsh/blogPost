@@ -13,6 +13,8 @@ app.use(bodyParser.json());
 
 // Route to render the main page
 app.get("/", async (req, res) => {
+  const response = await axios.get(`https://blog-api-server.vercel.app/posts`);
+  console;
   try {
     const response = await axios.get(
       `https://blog-api-server.vercel.app/posts`
@@ -20,7 +22,7 @@ app.get("/", async (req, res) => {
     console.log(response);
     res.render("index.ejs", { posts: response.data });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching posts", error });
+    res.status(500).json({ message: "Error fetching posts", error, response });
   }
 });
 
