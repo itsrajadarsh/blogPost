@@ -11,10 +11,12 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.get("/", (req, res) => {
+  res.send("Testing");
+});
+
 // Route to render the main page
 app.get("/", async (req, res) => {
-  const response = await axios.get(`https://blog-api-server.vercel.app/posts`);
-  console;
   try {
     const response = await axios.get(
       `https://blog-api-server.vercel.app/posts`
