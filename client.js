@@ -4,7 +4,8 @@ import axios from "axios";
 
 const app = express();
 const port = 3000;
-const API_URL = "http://localhost:4000";
+const API_URL =
+  "https://blog-api-server-bnwj8apfx-adarshs-projects-bdb5be3a.vercel.app";
 
 app.use(express.static("public"));
 
