@@ -122,7 +122,6 @@ If you would like to contribute to this project, please follow these steps:
 4. Commit your changes (`git commit -am 'Add new feature'`).
 5. Push to the branch (`git push origin feature/your-feature`).
 6. Open a Pull Request.
-7. And you are done...
 
 
 ## Contact
